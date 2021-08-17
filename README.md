@@ -4,7 +4,7 @@ The code uses [CPPRestSDK](https://github.com/Microsoft/cpprestsdk) and is parti
 
 # Installation
 
-The sample currently only runs on macOS and via Docker.
+The sample now runs on MacOS and Linux, Windows is not tested
 
 ## macOS
 
