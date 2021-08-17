@@ -22,7 +22,7 @@ void start(const string_t &address) {
     ucout << utility::string_t(U("Listening for requests at: ")) << addr << std::endl;
 }
 
-void on_shutdown(int signal) {
+void on_shutdown(int) {
     try {
         httpHandler->close().wait();
     } catch(...) { }
@@ -31,8 +31,12 @@ void on_shutdown(int signal) {
 
 int main(int argc, char *argv[]) {
 	const char* value = std::getenv("PORT");
-	cout << "Value of Environment Variable PORT is " << value << std::endl;
+
+	if(value == nullptr){
+	    value = "8080";
+	}
     utility::string_t port = U(value);
+	cout << "Value of Environment Variable PORT is " << port.c_str() << std::endl;
     if (argc == 2) {
 		ucout << utility::string_t(U("Got Implicit Port of ")) << argv[1] << std::endl;
         port = argv[1];
