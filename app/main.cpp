@@ -17,13 +17,14 @@ std::unique_ptr<handler> httpHandler;
 void start(const string_t &address) {
     uri_builder uri(address);
     auto addr = uri.to_uri().to_string();
-    httpHandler = std::unique_ptr<handler>(new handler(addr));
+    httpHandler = make_unique<handler>(addr);
     httpHandler->open().wait();
     ucout << utility::string_t(U("Listening for requests at: ")) << addr << std::endl;
 }
 
 void on_shutdown(int) {
     try {
+        cout << "Shutting down the Server...";
         httpHandler->close().wait();
     } catch(...) { }
     std::_Exit(0);
@@ -48,5 +49,5 @@ int main(int argc, char *argv[]) {
     start(address);
     std::signal(SIGTERM, on_shutdown);
     std::signal(SIGKILL, on_shutdown);
-    while(true);
+    getchar();
 }
