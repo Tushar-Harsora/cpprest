@@ -30,8 +30,11 @@ void on_shutdown(int signal) {
 }
 
 int main(int argc, char *argv[]) {
-    utility::string_t port = U("8080");
+	const char* value = std::getenv("PORT");
+	cout << "Value of Environment Variable PORT is " << value << std::endl;
+    utility::string_t port = U(value);
     if (argc == 2) {
+		ucout << utility::string_t(U("Got Implicit Port of ")) << argv[1] << std::endl;
         port = argv[1];
     }
 
